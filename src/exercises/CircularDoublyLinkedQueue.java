@@ -109,14 +109,15 @@ public class CircularDoublyLinkedQueue<E> implements Deque<E> {
 			this.header.setPrev(newNode);
 			currentSize++;
 		}
+
 		Node curNode = this.header;
-		Node result = new Node(element, curNode, null);
-		while (curNode.getNext() != this.header) {
-			curNode = curNode.getNext();
-		}
-		curNode.setNext(result);
-		this.header.setPrev(result);
-		result.setPrev(curNode);
+		Node newNode = curNode.getNext();
+		Node result = null;
+		result.setValue(element);
+		result.setPrev(curNode.getPrev());
+		result.getPrev().setNext(result);
+		result.setNext(curNode);
+		curNode.setPrev(result);
 
 		currentSize++;
 
